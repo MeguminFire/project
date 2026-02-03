@@ -1,147 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Computer Troubleshooting Guide</title>
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    header {
-      background-color: #1f2937;
-      color: #fff;
-      padding: 1.5rem;
-      text-align: center;
-    }
-    nav {
-      background-color: #374151;
-      padding: 0.5rem;
-      text-align: center;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 1rem;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-      background-color: #ffffff;
-    }
-    section {
-      margin-bottom: 2rem;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #1f2937;
-      color: #fff;
-    }
-    button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background-color: #2563eb;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    button:hover {
-      background-color: #1d4ed8;
-    }
-  </style>
-</head>
-<body>
+:root {
+    --primary: #4f46e5;
+    --bg: #f3f4f7;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #e2e8f0;
+}
 
-  <header>
-    <h1>Computer Troubleshooting Guide</h1>
-    <p>Common computer problems and how to fix them</p>
-  </header>
+* { box-sizing: border-box; }
 
-  <nav>
-    <a href="#intro">What is a Computer?</a>
-    <a href="#parts">Parts of a Computer</a>
-    <a href="#troubleshooting">Troubleshooting</a>
-  </nav>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.6;
+}
 
-  <main>
-    <section id="intro">
-      <h2>What is a Computer?</h2>
-      <p>A computer is an electronic device that accepts data as input, processes it according to instructions, stores information, and produces output. Computers are used for tasks such as typing documents, browsing the internet, creating projects, communication, and solving problems.</p>
-      <p>In daily life, computers are commonly used in schools, offices, businesses, and homes because they make work faster, easier, and more accurate.</p>
-    </section>
+header {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
 
-    <section id="parts">
-      
-      <h2>Main Parts of a Computer</h2>
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
 
-      <h3>1. Central Processing Unit (CPU)</h3>
-      
-      <p>The CPU is the brain of the computer. It processes instructions and controls all operations of the system.</p>
+.nav-links span {
+    cursor: pointer;
+    font-weight: 600;
+    padding: 10px 18px;
+    transition: 0.3s;
+    border-radius: 8px;
+    background: transparent;
+}
 
-      <h3>2. Motherboard</h3>
-      
-      <p>The motherboard connects all computer components together, allowing them to communicate with each other.</p>
+.nav-links span.active {
+    color: var(--primary);
+    background: #eef2ff;
+}
 
-      <h3>3. Random Access Memory (RAM)</h3>
-      
-      <p>RAM temporarily stores data that the computer is currently using. More RAM helps improve speed and multitasking.</p>
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
 
-      <h3>4. Storage Device (HDD / SSD)</h3>
-      
-      <p>Storage devices keep data permanently, such as the operating system, applications, and personal files.</p>
+.page { display: none; }
+.page.active { display: block; }
 
-      <h3>5. Power Supply Unit (PSU)</h3>
-      
-      <p>The PSU supplies electrical power to all internal components of the computer.</p>
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
 
-      <h3>6. Input Devices</h3>
-      
-      <p>Input devices like the keyboard and mouse allow users to enter data and commands into the computer.</p>
+.info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-      <h3>7. Output Devices</h3>
-      
-      <p>Output devices such as monitors and printers display or produce the results of computer processing.</p>
-    </section>
+.info-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+}
 
-    
+.detail-panel {
+    background: #fff;
+    padding: 45px;
+    border-radius: 20px;
+    margin-top: 30px;
+    display: none;
+    border-top: 10px solid var(--primary);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
 
-    <section id="troubleshooting">
-      <h2>Troubleshooting Common Computer Problems</h2>
+.media-box {
+    margin: 30px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    background: #000;
+}
 
-      <h3>1. Computer Will Not Turn On</h3>
-      <p>This problem usually occurs due to power issues. Check if the power cable is properly connected to both the computer and the power outlet. If you are using a laptop, make sure the battery is charged or try using the charger directly. A faulty power supply can also prevent the computer from turning on.</p>
+.media-box img { width: 100%; height: auto; display: block; }
+.media-box iframe { width: 100%; height: 480px; border: none; }
 
-      <h3>2. No Display on Monitor</h3>
-      <p>If the computer is running but nothing appears on the screen, the issue may be with the monitor or display cable. Ensure the monitor is powered on and the cable is securely connected. Incorrect display input settings or a damaged cable may also cause this problem.</p>
+.post-creator {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    margin-bottom: 35px;
+}
 
-      <h3>3. Slow Computer Performance</h3>
-      <p>Slow performance can be caused by too many programs running at the same time, insufficient RAM, or low storage space. Restarting the computer, closing unused applications, and deleting unnecessary files can help improve speed. Viruses and malware may also slow down the system.</p>
+input, textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #f8fafc;
+    font-size: 1rem;
+}
 
-      <h3>4. No Internet Connection</h3>
-      <p>This issue may be caused by network problems. Restart the modem and router, then reconnect the computer to the network. Check Wi-Fi settings, network cables, and make sure airplane mode is turned off. Incorrect network configuration can also prevent internet access.</p>
+.btn-post {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
 
-      <h3>5. Keyboard or Mouse Not Working</h3>
-      <p>This problem can occur due to loose connections or driver issues. Try unplugging and reconnecting the device, using a different USB port, or restarting the computer. For wireless devices, check the batteries and ensure Bluetooth is enabled.</p>
-
-      <h3>6. Computer Overheating</h3>
-      <p>Overheating happens when airflow is blocked or internal components are dirty. Dust buildup inside the computer can block fans and vents. Cleaning the system regularly and placing the computer on a hard, flat surface can help prevent overheating and system shutdowns.</p>
-    </section>
-
-    
-  </main>
-
-  <footer>
-    <p>&copy; 2026 12-MUSK GROUP 4</p>
-  </footer>
-
-</body>
-</html>
+.forum-post {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
