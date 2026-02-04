@@ -3,78 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Systems & Networking Hub</title>
+    <title>Cyber IT Hub | CSS G11 Edition</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h2 style="color: var(--primary); margin:0;">IT Systems & Networking Hub</h2>
+    <h1 style="color: var(--primary); text-align:center; letter-spacing: 3px;">SYSTEMS HUB 2.0</h1>
     <div class="nav-links">
         <span id="nav-log" class="active" onclick="showTab('log-tab')">Forum Logs</span>
         <span id="nav-hw" onclick="showTab('hw-tab')">Hardware</span>
         <span id="nav-sw" onclick="showTab('sw-tab')">Software</span>
         <span id="nav-net" onclick="showTab('net-tab')">Networking</span>
-        <span id="nav-fix" onclick="showTab('fix-tab')">Troubleshooting</span>
+        <span id="nav-fix" onclick="showTab('fix-tab')">Troubleshoot</span>
     </div>
 </header>
 
 <div class="container">
+    <input type="text" class="search-box" id="searchBar" placeholder="Search systems database (e.g., 'Kernel', 'OSI', 'BIOS')..." onkeyup="filterContent()">
+
     <div id="log-tab" class="page active">
         <div class="post-creator">
-            <h3>Post System Update</h3>
-            <input type="text" id="dev" placeholder="Device Name...">
-            <input type="text" id="iss" placeholder="Issue Status...">
-            <textarea id="sol" rows="3" placeholder="Notes..."></textarea>
+            <h3 style="color: var(--primary); margin-bottom: 15px;">Post System Update</h3>
+            <input type="text" id="dev" placeholder="Device Name (e.g., Server-01)">
+            <input type="text" id="iss" placeholder="Issue Status (e.g., Layer 3 Conflict)">
+            <textarea id="sol" rows="3" placeholder="Troubleshooting notes..."></textarea>
             <button class="btn-post" onclick="addPost()">Post to Feed</button>
         </div>
         <div id="forumArea"></div>
     </div>
 
-    <div id="hw-tab" class="page">
-        <h3>Hardware Infrastructure</h3>
-        <div class="info-grid">
-            <div class="info-card" onclick="openInfo('Motherboard')">📟 Motherboard</div>
-            <div class="info-card" onclick="openInfo('CPU')">⚡ CPU Design</div>
-            <div class="info-card" onclick="openInfo('RAM')">🧠 Memory Systems</div>
-            <div class="info-card" onclick="openInfo('PSU')">🔌 Power Regulation</div>
-            <div class="info-card" onclick="openInfo('GPU')">🎮 Graphics/GPU</div>
-        </div>
-    </div>
-
-    <div id="sw-tab" class="page">
-        <h3>OS & Kernel Architecture</h3>
-        <div class="info-grid">
-            <div class="info-card" onclick="openInfo('Kernel')">🧬 The Kernel</div>
-            <div class="info-card" onclick="openInfo('FileSys')">📂 File Systems</div>
-            <div class="info-card" onclick="openInfo('Virtual')">💻 Virtualization</div>
-            <div class="info-card" onclick="openInfo('BIOS')">📟 BIOS/UEFI</div>
-        </div>
-    </div>
-
-    <div id="net-tab" class="page">
-        <h3>Network & Topology</h3>
-        <div class="info-grid">
-            <div class="info-card" onclick="openInfo('OSI')">🌐 OSI Model</div>
-            <div class="info-card" onclick="openInfo('TCP')">🚥 TCP/IP Protocol</div>
-            <div class="info-card" onclick="openInfo('DNS')">🏷️ DNS Systems</div>
-            <div class="info-card" onclick="openInfo('Subnet')">🔢 Subnetting</div>
-        </div>
-    </div>
-
-    <div id="fix-tab" class="page">
-        <h3>Visual Repair Guides</h3>
-        <div class="info-grid">
-            <div class="info-card" onclick="openInfo('BSOD')">🟦 BSOD Repair</div>
-            <div class="info-card" onclick="openInfo('NetFix')">📶 Network Repair</div>
-            <div class="info-card" onclick="openInfo('HardwareFix')">🛠️ Hardware Diag</div>
-        </div>
+    <div id="main-content-area" class="page">
+        <div class="info-grid" id="cardGrid"></div>
     </div>
 
     <div id="detailPanel" class="detail-panel">
-        <button onclick="this.parentElement.style.display='none'" style="float:right; cursor:pointer; background:none; border:1px solid #ccc; border-radius:4px;">✖ Close</button>
-        <h2 id="detailTitle" style="color: var(--primary);"></h2>
-        <div id="detailContent" class="detail-content"></div>
+        <button onclick="closeDetail()" style="color:var(--primary); background:none; border:1px solid var(--primary); padding: 5px 10px; cursor:pointer; float:right; border-radius:4px;">[ TERMINATE ACCESS ]</button>
+        <h2 id="detailTitle" style="color: var(--primary); margin-bottom:20px; text-transform: uppercase;"></h2>
+        <div id="detailContent" style="font-size: 1.1rem; line-height: 1.8;"></div>
     </div>
 </div>
 
