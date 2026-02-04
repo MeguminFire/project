@@ -1,55 +1,106 @@
 const itData = {
-    'Motherboard': {
-        title: 'Mastering the Motherboard (Mainboard)',
-        content: `
-            <p>The motherboard is the primary circuit board of a computer, acting as the "nervous system" that connects every peripheral and internal component. For CSS students, it is vital to recognize the different form factors such as ATX and ITX, which determine the physical size and case compatibility of a build.</p>
-                        <p>Technically, the motherboard houses the chipset, which acts as the communications controller between the CPU and other devices. It also contains the VRM (Voltage Regulator Modules) that ensure the CPU receives steady, low-voltage power. High-end boards feature multiple layers of copper for better heat dissipation and signal integrity.</p>
-            <p>Troubleshooting often involves diagnosing "POST" (Power-On Self-Test) errors. If a board fails to boot, technicians look for "Beep Codes" or LED debug indicators. Common fixes include clearing the CMOS to reset BIOS settings or checking for physical damage like bulging capacitors.</p>`
+    'Hardware': {
+        'Motherboard': {
+            title: 'Motherboard Architecture',
+            content: `<p>The motherboard is the primary Printed Circuit Board (PCB) that acts as the backbone of the entire computer. For CSS students, it's essential to understand that the motherboard dictates the type of CPU, RAM, and storage the system can support. It contains the Chipset, which manages high-speed data flow between the processor and external devices.</p>
+            
+            <p>Technically, the motherboard houses the VRM (Voltage Regulator Modules) which are responsible for stepping down high-voltage power from the PSU to the precise 1.2V-1.35V required by the CPU. Modern boards also feature M.2 slots for NVMe SSDs and PCIe lanes for high-end graphics cards.</p>
+            <p>Common troubleshooting involves the "POST" (Power-On Self-Test). If a computer fails to start, technicians listen for "Beep Codes" or look at Debug LEDs on the board to identify if the RAM, CPU, or GPU is the cause of the failure.</p>`
+        },
+        'CPU': {
+            title: 'CPU & Thermal Management',
+            content: `<p>The Central Processing Unit (CPU) is the "brain" of the computer, executing billions of instructions per second using the Fetch-Decode-Execute cycle. Modern CPUs are multi-core, allowing them to handle several tasks simultaneously through parallel processing.</p>
+            <p>A critical aspect of CSS is Thermal Management. The CPU generates intense heat and requires a heatsink and thermal paste to transfer that heat away. If the temperature exceeds safe limits, the CPU will "Thermal Throttle," slowing itself down to prevent permanent hardware damage.</p>
+            <p>Troubleshooting often involves checking the "BIOS Temperature Monitor" or using software to check for "Bottlenecking." If a PC randomly shuts down during heavy tasks, it is almost always an overheating issue caused by dried thermal paste or a failing fan.</p>`
+        }
     },
-    'OSI': {
-        title: 'The 7-Layer OSI Reference Model',
-        content: `
-            <p>The OSI (Open Systems Interconnection) model is a conceptual framework that standardizes network functions into seven distinct layers. Troubleshooting starts at Layer 1 (Physical), which covers cables and hardware, and moves up to Layer 7 (Application), where the user interacts with software.</p>
-                        <p>For Grade 11 CSS, understanding Layer 3 (Network) is crucial because it handles IP addressing and routing. Layer 4 (Transport) manages data reliability through TCP and UDP protocols. By isolating a network fault to a specific layer, you save time and avoid misdiagnosing software errors as hardware failures.</p>
-            <p>A professional technician uses this model to communicate with others. For example, saying "The issue is at Layer 1" immediately tells everyone to check the Ethernet cables, switches, and physical ports before looking at IP settings or server configurations.</p>`
+    'Software': {
+        'Kernel': {
+            title: 'The Operating System Kernel',
+            content: `<p>The Kernel is the core part of an Operating System that manages system resources and hardware communication. It resides in the RAM from the moment the PC boots up and acts as a bridge between your apps and the physical hardware like the disk and CPU.</p>
+            <p>In Windows, the NT Kernel manages "System Calls," which are requests made by software to perform tasks like saving a file or drawing a pixel on the screen. It ensures that one application cannot crash the entire system by isolating memory into "User Mode" and "Kernel Mode."</p>
+            <p>When you see a "Kernel Panic" or a BSOD, it means a driver (software that talks to hardware) has made a mistake that the Kernel cannot fix. Troubleshooting involves checking "Device Manager" for driver conflicts or using "System File Checker" (SFC /scannow) to repair corrupted OS files.</p>`
+        }
     },
-    'Kernel': {
-        title: 'System Kernel & Resource Management',
-        content: `
-            <p>The Kernel is the core program of an operating system, staying in memory to manage all hardware-software interactions. It is responsible for memory management, process scheduling, and disk access. It acts as a bridge, translating software requests into instructions the CPU can execute.</p>
-            <p>Modern kernels operate in "Kernel Mode," which has full access to hardware. Applications run in "User Mode," which is restricted to prevent a single app crash from taking down the entire computer. This separation is key to system stability and security.</p>
-            <p>When a system encounters a "Blue Screen" or "Kernel Panic," it means the kernel has detected a critical error it cannot recover from. This is often caused by a faulty device driver attempting to access a protected memory location. Troubleshooting involves analyzing minidump files to see which driver caused the crash.</p>`
+    'Networking': {
+        'OSI Model': {
+            title: 'The 7-Layer OSI Model',
+            content: `<p>The OSI (Open Systems Interconnection) Model is the global standard for understanding network communication. It breaks down how data travels across the world into 7 distinct layers, from the physical cable (Layer 1) to the web browser (Layer 7).</p>
+            
+            <p>For CSS students, Layer 3 (Network) is the most important as it handles IP Addressing and Routing. Layer 4 (Transport) handles "Reliability" via TCP, ensuring that if a packet of data is lost, it is automatically re-sent until the message is complete.</p>
+            <p>Troubleshooting always starts at Layer 1. If a computer has no internet, you check the physical RJ45 cable and the "Link Light" on the router before checking IP settings or software firewalls. This "Bottom-Up" approach is the mark of a professional technician.</p>`
+        }
     }
-    // Add more categories here following the same title/content format
+    // You can follow this pattern to add as many as you want!
 };
 
-function renderGrid(tab) {
-    const grid = document.getElementById('cardGrid');
-    grid.innerHTML = ''; // Clear old broken boxes
+function showTab(pageId, category) {
+    // 1. Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
     
-    // Filter logic based on tab
-    for (let key in itData) {
+    // 2. Show the selected page
+    const activePage = document.getElementById(pageId);
+    activePage.style.display = 'block';
+    
+    // 3. Update active button style
+    document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
+    // Find the button that was clicked and make it active
+    event.currentTarget.classList.add('active');
+
+    // 4. If it's a content page, render the cards
+    if (category !== 'Logs') {
+        renderGrid(category);
+    }
+    
+    // 5. Hide the detail panel when switching
+    closeDetail();
+}
+
+function renderGrid(category) {
+    const grid = document.getElementById('cardGrid');
+    grid.innerHTML = ''; 
+    
+    const items = itData[category];
+    for (let key in items) {
         let card = document.createElement('div');
         card.className = 'info-card';
-        card.innerHTML = `<h3>${key}</h3><p>Initialize Technical Scan...</p>`;
-        card.onclick = () => openInfo(key);
+        card.innerHTML = `<h3>${key}</h3><p>Accessing encrypted data...</p>`;
+        card.onclick = () => openInfo(category, key);
         grid.appendChild(card);
     }
 }
 
-function openInfo(key) {
+function openInfo(cat, key) {
     const panel = document.getElementById('detailPanel');
-    document.getElementById('detailTitle').innerText = itData[key].title;
-    document.getElementById('detailContent').innerHTML = itData[key].content;
+    document.getElementById('detailTitle').innerText = itData[cat][key].title;
+    document.getElementById('detailContent').innerHTML = itData[cat][key].content;
     panel.style.display = 'block';
 }
 
-function showTab(tabId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-links span').forEach(s => s.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    document.getElementById('nav-' + tabId.split('-')[0]).classList.add('active');
-    renderGrid(tabId);
+function closeDetail() {
+    document.getElementById('detailPanel').style.display = 'none';
 }
 
-renderGrid('hw-tab'); // Initial start
+function addPost() {
+    const dev = document.getElementById('dev').value;
+    const iss = document.getElementById('iss').value;
+    const sol = document.getElementById('sol').value;
+    if(!dev || !iss) return;
+    const post = { dev, iss, sol, date: new Date().toLocaleString() };
+    let logs = JSON.parse(localStorage.getItem('it_logs')) || [];
+    logs.unshift(post);
+    localStorage.setItem('it_logs', JSON.stringify(logs));
+    renderLogs();
+    document.getElementById('dev').value=''; document.getElementById('iss').value=''; document.getElementById('sol').value='';
+}
+
+function renderLogs() {
+    const area = document.getElementById('forumArea');
+    area.innerHTML = '';
+    const logs = JSON.parse(localStorage.getItem('it_logs')) || [];
+    logs.forEach(l => {
+        area.innerHTML += `<div class="forum-post" style="background:rgba(255,255,255,0.05); border:1px solid var(--primary); padding:15px; margin-bottom:10px; border-radius:10px;">
+            <strong>${l.dev}</strong> - <small>${l.date}</small><p>Status: ${l.iss}</p><p>${l.sol}</p></div>`;
+    });
+}
+renderLogs();
