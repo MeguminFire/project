@@ -9,24 +9,24 @@
 <body>
 
 <header>
-    <h1 style="color: var(--primary); text-align:center; letter-spacing: 3px;">SYSTEMS HUB 2.0</h1>
-    <div class="nav-links">
-        <span id="nav-log" class="active" onclick="showTab('log-tab')">Forum Logs</span>
-        <span id="nav-hw" onclick="showTab('hw-tab')">Hardware</span>
-        <span id="nav-sw" onclick="showTab('sw-tab')">Software</span>
-        <span id="nav-net" onclick="showTab('net-tab')">Networking</span>
-        <span id="nav-fix" onclick="showTab('fix-tab')">Troubleshoot</span>
-    </div>
+    <h1 style="color: var(--primary); text-align:center; letter-spacing: 3px; margin-bottom: 10px;">SYSTEMS HUB 2.0</h1>
+    <nav class="nav-links">
+        <span id="nav-log" class="active" onclick="showTab('log-tab', 'Logs')">Forum Logs</span>
+        <span id="nav-hw" onclick="showTab('main-content-area', 'Hardware')">Hardware</span>
+        <span id="nav-sw" onclick="showTab('main-content-area', 'Software')">Software</span>
+        <span id="nav-net" onclick="showTab('main-content-area', 'Networking')">Networking</span>
+        <span id="nav-fix" onclick="showTab('main-content-area', 'Troubleshooting')">Troubleshoot</span>
+    </nav>
 </header>
 
 <div class="container">
-    <input type="text" class="search-box" id="searchBar" placeholder="Search systems database (e.g., 'Kernel', 'OSI', 'BIOS')..." onkeyup="filterContent()">
+    <input type="text" class="search-box" id="searchBar" placeholder="Search systems database..." onkeyup="filterContent()">
 
     <div id="log-tab" class="page active">
         <div class="post-creator">
             <h3 style="color: var(--primary); margin-bottom: 15px;">Post System Update</h3>
-            <input type="text" id="dev" placeholder="Device Name (e.g., Server-01)">
-            <input type="text" id="iss" placeholder="Issue Status (e.g., Layer 3 Conflict)">
+            <input type="text" id="dev" placeholder="Device Name...">
+            <input type="text" id="iss" placeholder="Issue Status...">
             <textarea id="sol" rows="3" placeholder="Troubleshooting notes..."></textarea>
             <button class="btn-post" onclick="addPost()">Post to Feed</button>
         </div>
